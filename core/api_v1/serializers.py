@@ -42,4 +42,4 @@ class TimerInfoSerializer(serializers.ModelSerializer):
         data_response["short_link"] = "http" + "://" + \
             "127.0.0.1:8000" + "/timer/" + data_response["short_link"]
 
-        return data_responseُ
+        return data_response

@@ -1,8 +1,10 @@
 from django.urls import path, re_path
-from api_v1.views import Index, CreateTimer, StopTimer, TimerInfo
+from api_v1.views.timer_views import CreateTimer, TimerInfo, EndTimer
+from api_v1.views.index_views import Index
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,9 +39,8 @@ yasg_drf_patterns = [
 
 urlpatterns = [
 
-    path('', Index.as_view(), name="site index"),
     path('timer/new', CreateTimer.as_view(), name="create_timer"),
     path('timer/<timer_id>/', TimerInfo.as_view(), name="timer_info"),
-    path('timer/stop/<timer_id>/', StopTimer.as_view(), name="stop_timer")
+    path('timer/stop/<timer_id>/', EndTimer.as_view(), name="stop_timer")
 
 ] + yasg_drf_patterns

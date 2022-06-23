@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from api_v1.views import Index, GetTimerWthiShortLink
+from api_v1.views.index_views import Index
+from api_v1.views.timer_views import GetTimerWthiShortLink
 
 urlpatterns = [
     path('', Index.as_view(), name="site_index"),

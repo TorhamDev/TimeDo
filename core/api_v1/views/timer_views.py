@@ -46,12 +46,13 @@ class EndTimer(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = TimerInfoSerializer
 
-    def post(self, request, timer_id):
+    def put(self, request, timer_id):
 
         timer = get_object_or_404(Timer, pk=timer_id)
 
         if request.user == timer.owner:
             timer.end_time = datetime.now()
+            timer.is_end = True
             timer.save()
 
             serializer = TimerInfoSerializer(instance=timer)
@@ -60,6 +61,40 @@ class EndTimer(GenericAPIView):
 
         else:
             raise YouAreNotOwnerOfThisTimer
+
+
+class StopTimer(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = TimerInfoSerializer
+    
+    def put(self, request, timer_id):
+        timer = get_object_or_404(Timer, pk=timer_id)
+        
+
+        if request.user == timer.owner:
+            timer.last_stop = datetime.now()
+            timer.is_stop = True
+            timer.save()
+
+            serializer = self.serializer_class(instance=timer)
+
+            return Response(serializer.data)
+
+
+class StartTimer(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = TimerInfoSerializer
+
+    def put(self, request, timer_id):
+        timer = get_object_or_404(Timer, pk=timer_id)
+
+        if request.user == timer.owner:
+            timer.is_stop = False
+            timer.save()
+
+            serializer = self.serializer_class(instance=timer)
+
+            return Response(serializer.data)
 
 
 class GetTimerWthiShortLink(GenericAPIView):

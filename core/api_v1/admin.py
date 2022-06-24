@@ -4,7 +4,13 @@ from api_v1.models import Timer, ToDo
 
 
 class TimerAdmin(admin.ModelAdmin):
-    list_display = ['title', 'id', 'start_time', 'end_time', 'is_archive']
+    list_display = [
+        'title',
+        'id',
+        'start_time',
+        'end_time',
+        'is_archive',
+    ]
 
 
 admin.site.register(Timer, TimerAdmin)

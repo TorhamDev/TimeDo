@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'drf_yasg',
     'rest_framework',
     'api_v1.apps.ApiV1Config',
@@ -86,7 +86,13 @@ DATABASES = {
 
 
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'core.utils.exceptions.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'core.utils.exceptions.custom_exception_handler',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
 }
 
 # Password validation

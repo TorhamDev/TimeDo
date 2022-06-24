@@ -35,6 +35,14 @@ class Timer(models.Model):
         default=False,
         help_text=_("Is this timer archived?"),
     )
+    is_stop = models.BooleanField(
+        default=False,
+        help_text=_("Is this timer stoped now?"),
+    )
+    is_end = models.BooleanField(
+        default=False,
+        help_text=_("Is this timer ended?"),
+    )
     short_link = models.URLField(
         help_text=_("timer short link (optional)"),
         blank=True,
@@ -53,7 +61,6 @@ class Timer(models.Model):
         auto_now=True,
         help_text=_("update time"),
     )
-
 
     def __str__(self) -> str:
         return self.title
